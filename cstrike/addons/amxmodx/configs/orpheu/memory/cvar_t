@@ -1,0 +1,92 @@
+[
+    {
+        "name"        : "cvar_t::name",
+        "type"        : "char *",
+        "memoryType"  : "data",
+        "identifiers" : 
+        [
+            {
+                "os"    : "windows",
+                "mod"   : "cstrike",
+                "value" : 0
+            },
+            {
+                "os"    : "linux",
+                "mod"   : "cstrike",
+                "value" : 0
+            }
+        ]
+    },
+    {
+        "name"        : "cvar_t::string",
+        "type"        : "char *",
+        "memoryType"  : "data",
+        "identifiers" : 
+        [
+            {
+                "os"    : "windows",
+                "mod"   : "cstrike",
+                "value" : 4
+            },
+            {
+                "os"    : "linux",
+                "mod"   : "cstrike",
+                "value" : 4
+            }
+        ]
+    },
+    {
+        "name"        : "cvar_t::flags",
+        "type"        : "long",
+        "memoryType"  : "data",
+        "identifiers" : 
+        [
+            {
+                "os"    : "windows",
+                "mod"   : "cstrike",
+                "value" : 8
+            },
+            {
+                "os"    : "linux",
+                "mod"   : "cstrike",
+                "value" : 8
+            }
+        ]
+    }, 
+    {
+        "name"        : "cvar_t::value",
+        "type"        : "float",
+        "memoryType"  : "data",
+        "identifiers" : 
+        [
+            {
+                "os"    : "windows",
+                "mod"   : "cstrike",
+                "value" : 12
+            },
+            {
+                "os"    : "linux",
+                "mod"   : "cstrike",
+                "value" : 12
+            }
+        ]
+    },
+    {
+        "name"        : "cvar_t::next",
+        "type"        : "cvar_s *",
+        "memoryType"  : "data",
+        "identifiers" : 
+        [
+            {
+                "os"    : "windows",
+                "mod"   : "cstrike",
+                "value" : 16
+            },
+            {
+                "os"    : "linux",
+                "mod"   : "cstrike",
+                "value" : 16
+            }
+        ]
+    } 
+]

@@ -1,0 +1,17 @@
+{
+	"name" : "PM_CatagorizeTextureType",
+	"library" : "mod",
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBB100
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_CatagorizeTextureType"
+		}
+	]
+}

@@ -1,0 +1,23 @@
+{
+	"name" : "PM_Init",
+	"library" : "mod",
+	"arguments" :
+	[
+		{
+			"type" : "playermove_s *"
+		}
+	],
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xC0090
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_Init"
+		}
+	]
+}

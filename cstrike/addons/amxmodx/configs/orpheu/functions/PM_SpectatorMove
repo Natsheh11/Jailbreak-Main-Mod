@@ -1,0 +1,17 @@
+{
+	"name" : "PM_SpectatorMove",
+	"library" : "mod",
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBD290
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_SpectatorMove"
+		}
+	]
+}

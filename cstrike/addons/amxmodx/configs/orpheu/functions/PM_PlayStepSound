@@ -1,0 +1,26 @@
+{
+	"name" : "PM_PlayStepSound",
+	"library" : "mod",
+	"arguments" :
+	[
+		{
+			"type" : "int"
+		},
+		{
+			"type" : "float"
+		}
+	],
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBA920
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_PlayStepSound"
+		}
+	]
+}

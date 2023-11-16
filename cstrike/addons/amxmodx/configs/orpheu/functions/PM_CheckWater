@@ -1,0 +1,17 @@
+{
+	"name" : "PM_CheckWater",
+	"library" : "mod",
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBCAC0
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_CheckWater"
+		}
+	]
+}

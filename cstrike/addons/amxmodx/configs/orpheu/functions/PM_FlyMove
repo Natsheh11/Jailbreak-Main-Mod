@@ -1,0 +1,17 @@
+{
+	"name" : "PM_FlyMove",
+	"library" : "mod",
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBB850
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_FlyMove"
+		}
+	]
+}

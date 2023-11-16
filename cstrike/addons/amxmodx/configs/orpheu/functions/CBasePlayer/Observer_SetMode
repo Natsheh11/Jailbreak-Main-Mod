@@ -1,0 +1,25 @@
+{
+	"name" : "Observer_SetMode", 
+	"class" : "CBasePlayer",
+	"library" : "mod", 
+	"arguments" : 
+	[
+		{ 
+			"type" : "int"
+		} 
+	], 
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : [0x83,0xEC,"*",0x55,0x8B,0x6C,0x24,"*",0x56,0x8B,0xF1,0x8B,0x46,"*",0x3B,0xA8]
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "_ZN11CBasePlayer16Observer_SetModeEi_part_5"
+		}
+	]
+	
+}

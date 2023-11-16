@@ -1,0 +1,17 @@
+{
+	"name" : "PM_CheckFalling",
+	"library" : "mod",
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBEC20
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_CheckFalling"
+		}
+	]
+}

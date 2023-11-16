@@ -1,0 +1,17 @@
+{
+	"name" : "PM_WaterMove",
+	"library" : "mod",
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBC650
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_WaterMove"
+		}
+	]
+}

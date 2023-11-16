@@ -1,0 +1,14 @@
+{
+    "name" : "ChangeLevel",
+    "library" : "engine",
+    "arguments" :
+    [
+        {
+            "type" : "void"
+        }
+    ],
+    "return" :
+    {
+        "type" : "void"
+    }
+}

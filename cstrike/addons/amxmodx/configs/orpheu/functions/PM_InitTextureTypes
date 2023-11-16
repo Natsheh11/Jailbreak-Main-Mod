@@ -1,0 +1,23 @@
+{
+	"name" : "PM_InitTextureTypes",
+	"library" : "mod",
+	"arguments" :
+	[
+		{
+			"type" : "qboolean"
+		}
+	],
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBA520
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_InitTextureTypes"
+		}
+	]
+}

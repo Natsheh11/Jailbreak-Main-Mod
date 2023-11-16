@@ -1,0 +1,17 @@
+{
+	"name" : "PM_ReduceTimers",
+	"library" : "mod",
+	"identifiers" :
+	[
+		{
+			"os" : "windows",
+			"mod" : "cstrike",
+			"value" : 0xBF520
+		},
+		{
+			"os" : "linux",
+			"mod" : "cstrike",
+			"value" : "PM_ReduceTimers"
+		}
+	]
+}
