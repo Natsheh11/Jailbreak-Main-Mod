@@ -1,0 +1,6 @@
+If you're running your HLDS with the default gamedll you need to (comment out / remove) #define REGAMEDLL from the following sma files...
+
+* infinite_round.sma
+* round_terminator.sma
+* jb_death_realm.sma
+* item_ammo.sma
