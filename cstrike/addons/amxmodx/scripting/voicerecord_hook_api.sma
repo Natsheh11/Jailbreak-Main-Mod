@@ -26,6 +26,8 @@ native VTC_PlaySound(receiver, const soundFilePath[]);
 #endif
 
 #if !defined VTC
+#define GetPlayerByClientStruct(%0)     ( ( %0 - g_client_t_address ) / 20200 + 1 )
+
 new g_top_client
 new g_client_t_address
 new g_player_voice_status[ 32 ]
@@ -44,7 +46,7 @@ public plugin_init()
 
     new svs = OrpheuMemoryGet( "g_psvs" );
 
-    g_client_t_address = OrpheuMemoryGet( "g_psvs_clients" );
+    g_client_t_address = OrpheuMemoryGetAtAddress( svs + 4, "g_psvs_clients" );
     arrayset( g_player_voice_status, 0, 32 );
     g_top_client = 0;
     #endif
@@ -70,7 +72,6 @@ public hamPlayerSpawn( id )
 
 public fwd_Voice_SetClientListening( receiver, sender, bool:listen )
 {
-    new g_iResult
     // Detect +voicerecord
     if( receiver == 1 && g_player_voice_status[ sender - 1 ] )
     {
