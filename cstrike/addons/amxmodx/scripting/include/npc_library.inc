@@ -247,6 +247,40 @@ stock NPC_FREE_HOOKS(const class[])
     }
 }
 
+stock PrecacheModelSounds(const szModel[])
+{
+    const EVENT_EMIT_SOUND = 5004;
+
+    new Array:pAnimsArray[NPC_ACTIVITY], iAnimsArraySize[NPC_ACTIVITY];
+    MDL_STUDIO_LOAD_ANIMATIONS(szModel, pAnimsArray, iAnimsArraySize);
+
+    for(new i, j, o, any:xArray[ANIMATION_DATA], xEventArray[ANIMATION_EVENTS_DATA], maxloop, maxloop2; i < NPC_ACTIVITY; i++)
+    {
+        if(pAnimsArray[i] != Invalid_Array)
+        {
+            for(j = 0, maxloop = iAnimsArraySize[i]; j < maxloop; j++)
+            {
+                ArrayGetArray(pAnimsArray[i], j, xArray);
+
+                if(Array:xArray[ANIMATION_EVENT_ARRAY] != Invalid_Array)
+                {
+                    for(o = 0, maxloop2 = xArray[ANIMATION_EVENTS]; o < maxloop2; o++)
+                    {
+                        ArrayGetArray(Array:xArray[ANIMATION_EVENT_ARRAY], o, xEventArray);
+
+                        if(any:xEventArray[EVENT_NUMBER] == EVENT_EMIT_SOUND)
+                        {
+                            precache_sound(xEventArray[EVENT_OPTION]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    MDL_STUDIO_FREE_DATA(pAnimsArray, iAnimsArraySize);
+}
+
 stock NPC_Hook_Event(const NPC_CUSTOM_CLASS[], const NPC_EVENTS:iEventType, const CallBackfunction[], const PluginID)
 {
     static HamHook:iHookID[NPC_EVENTS];
@@ -487,7 +521,7 @@ stock MDL_STUDIO_LOAD_ANIMATIONS(const model[], Array:retArrays[NPC_ACTIVITY], r
 
         if(iActivity <= 0)
         {
-            continue;
+            iActivity = ACT_OTHER;
         }
 
         if(retArrays[iActivity] == Invalid_Array)
@@ -533,7 +567,7 @@ stock NPC_SPAWN( const class[], const name[], const szModel[],
     set_pev(ent, pev_controller_1, 127);
     set_pev(ent, pev_controller_2, 127);
     set_pev(ent, pev_controller_3, 127);
-    set_pev(ent, pev_owner, owner);
+    set_pev(ent, pev_owner, !owner ? ent : owner);
     set_pev(ent, pev_flags, (FL_MONSTER|FL_ALWAYSTHINK));
     set_pev(ent, pev_deadflag, DEAD_NO);
 
@@ -974,7 +1008,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                 .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                 .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-            return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS], 1.0) );
+            return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS], 1.0) );
         }
 
         return 0.0;
@@ -1005,7 +1039,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                         .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                         .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-                    return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+                    return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
                 }
                 else if(arrSizeActivity[ACT_IDLE] > 0)
                 {
@@ -1017,7 +1051,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                         .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                         .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-                    return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+                    return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
                 }
             }
             case 1..100:
@@ -1035,7 +1069,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                         .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                         .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-                    return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+                    return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
                 }
                 else if(arrSizeActivity[ACT_WALK] > 0)
                 {
@@ -1047,7 +1081,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                         .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                         .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-                    return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+                    return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
                 }
                 else if(arrSizeActivity[ACT_RUN] > 0)
                 {
@@ -1061,7 +1095,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                         .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                         .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-                    return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+                    return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
                 }
             }
             default:
@@ -1078,7 +1112,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                         .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                         .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-                    return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+                    return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
                 }
                 else if(arrSizeActivity[ACT_RUN] > 0)
                 {
@@ -1090,7 +1124,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                         .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                         .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-                    return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+                    return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
                 }
                 else if(arrSizeActivity[ACT_WALK] > 0)
                 {
@@ -1105,7 +1139,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                         .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                         .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-                    return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+                    return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
                 }
             }
         }
@@ -1125,7 +1159,7 @@ stock Float:NPC_animation(const iNPC, const Array:arrActivity[NPC_ACTIVITY], con
                 .pArrayEvent=Array:xArray[ANIMATION_EVENT_ARRAY],
                 .pArrayEventSize=xArray[ANIMATION_EVENTS]);
 
-            return ( xArray[ANIMATION_FRAMES] / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
+            return ( float(xArray[ANIMATION_FRAMES]) / floatmax(xArray[ANIMATION_FPS] * fFrameRate, 1.0) );
         }
     }
 
@@ -1617,19 +1651,19 @@ stock PlayAnimation(const id, const iSeq=0, Float:fFPS, Float:fFrameRate, const 
     
     if(NPC_ACTIVITY:pev(id, PEV_ANIM_TASK) != ACT_TYPE || ACT_TYPE == ACT_INVALID || !bInLOOP)
     {
+        // Lets Remove old tasks !!!
+        remove_task(id);
+
         set_pev(id, pev_sequence, iSeq);
         set_pev(id, pev_gaitsequence, iSeq);
         set_pev(id, pev_animtime, fGametime + fDelay);
         set_pev(id, pev_framerate, fFrameRate);
         
-        set_pev(id, PEV_ANIMATION_COOLDOWN, fGametime + (iMaxFrames / (fFPS * fFrameRate)));
+        set_pev(id, PEV_ANIMATION_COOLDOWN, fGametime + (float(iMaxFrames) / (fFPS * fFrameRate)));
         set_pev(id, PEV_ANIM_TASK, ACT_TYPE);
 
         if( g_trie_MDL_EVENTS != Invalid_Trie && pArrayEvent != Invalid_Array )
         {
-            // Lets Remove old tasks !!!
-            remove_task(id);
-
             static sz_pModel[32], pModel, Array:tArray;
             pModel = pev(id, pev_modelindex);
             num_to_str(pModel, sz_pModel, charsmax(sz_pModel));
@@ -1654,11 +1688,11 @@ stock PlayAnimation(const id, const iSeq=0, Float:fFPS, Float:fFrameRate, const 
                     while( iEvent-- > 0 )
                     {
                         ArrayGetArray(pArrayEvent, iEvent, eventArray);
-                        set_task( (eventArray[EVENT_FRAMES] / (fFPS * fFrameRate)), xArray[FUNC_NAME], id, eventArray, sizeof eventArray);
+                        set_task( (float(eventArray[EVENT_FRAMES]) / (fFPS * fFrameRate)), xArray[FUNC_NAME], id, eventArray, sizeof eventArray);
 
                         if( bInLOOP )
                         {
-                            set_task( ((iMaxFrames + eventArray[EVENT_FRAMES]) / (fFPS * fFrameRate)), xArray[FUNC_NAME], id, eventArray, sizeof eventArray, .flags="b");
+                            set_task( (float(iMaxFrames + eventArray[EVENT_FRAMES]) / (fFPS * fFrameRate)), xArray[FUNC_NAME], id, eventArray, sizeof eventArray, .flags="b");
                         }
                     }
                 }
@@ -1900,47 +1934,50 @@ stock NPC_SIZE(const NPC_SIZES:iType, Float:fMaxs[3], Float:fMins[3])
     return 0;
 }
 
-stock find_sky(Float:fOrigin[3], const ignore_ent=-1)
+stock bool:find_sky(Float:fOrigin[3], const ignore_ent=-1)
 {
-    static iTr2, Float:flFraction, Float:fEnd[3]; iTr2 = create_tr2();
+    if(engfunc(EngFunc_PointContents, fOrigin) == CONTENTS_SKY)
+    {
+        return true;
+    }
+
+    static szTexture[16], iTr2, Float:fEnd[3]; iTr2 = create_tr2();
 
     fEnd[0] = fOrigin[0];
     fEnd[1] = fOrigin[1];
     fEnd[2] = 4096.0;
 
+    new const NULL_TEXTURE[] = "NoTexture";
+
     while( true )
     {
-        engfunc(EngFunc_TraceLine, fOrigin, fEnd, (IGNORE_MONSTERS|IGNORE_MISSILE|IGNORE_GLASS), ignore_ent, iTr2);
+        engfunc(EngFunc_TraceLine, fOrigin, fEnd, (IGNORE_MONSTERS|IGNORE_MISSILE), ignore_ent, iTr2);
+        engfunc(EngFunc_TraceTexture, 0, fOrigin, fEnd, szTexture, charsmax(szTexture));
         get_tr2(iTr2, TR_vecEndPos, fEnd);
-        get_tr2(iTr2, TR_Fraction, flFraction);
 
-        fEnd[2] += 1.0;
-
-        if(flFraction == 1.0)
+        if(equal(szTexture, NULL_TEXTURE))
         {
             free_tr2(iTr2);
-
-            if(engfunc(EngFunc_PointContents, fOrigin) == CONTENTS_SKY)
-            {
-                return true;
-            }
-
-            if(engfunc(EngFunc_PointContents, fEnd) == CONTENTS_SKY)
-            {
-                xs_vec_copy(fEnd, fOrigin);
-                return true;
-            }
 
             return false;
         }
 
-        if(engfunc(EngFunc_PointContents, fEnd) == CONTENTS_SKY)
+        if(equal(szTexture, "sky") || engfunc(EngFunc_PointContents, fEnd) == CONTENTS_SKY)
         {
             xs_vec_copy(fEnd, fOrigin);
             free_tr2(iTr2);
             return true;
         }
 
+        // Are we inside a solid matter? DIG UP!!!
+        if(!get_tr2(iTr2, TR_InOpen) && get_tr2(iTr2, TR_StartSolid) && get_tr2(iTr2, TR_AllSolid))
+        {
+            fOrigin[2] += 1.0;
+            fEnd[2] = 4096.0;
+            continue;
+        }
+
+        fEnd[2] += 1.0;
         xs_vec_copy(fEnd, fOrigin);
         fEnd[2] = 4096.0;
     }
