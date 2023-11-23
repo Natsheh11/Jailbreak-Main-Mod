@@ -11,7 +11,7 @@
 #define VIEW_BACK_100_UNITS -100.0
 #define VIEW_FIRST_PERSON 0.0
 forward OnSetAnimation(id, anim);
-native set_player_camera(const id, const VIEW_CAMERA_OFFSETS:flViewOffset);
+native set_player_camera(const id, const Float:flViewOffset);
 
 enum
 {
