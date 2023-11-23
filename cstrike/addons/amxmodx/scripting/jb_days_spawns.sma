@@ -87,6 +87,8 @@ public plugin_end()
 	}
 
 	if(DAYS_MENU != INVALID_HANDLE) menu_destroy( DAYS_MENU );
+
+	ROGFree();
 }
 
 public client_connect(id) bUserCopy[id] = false;
