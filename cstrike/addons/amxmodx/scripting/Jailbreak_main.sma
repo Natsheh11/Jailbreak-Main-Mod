@@ -3039,7 +3039,7 @@ UpdateCellsButton()
 	new szTarget[32], szClass[32], iTarget;
 	pev(CELLS_BUTTON, pev_target, szTarget, charsmax(szTarget));
 
-	while((iTarget = find_ent_by_tname(-1, szTarget)) > 0)
+	while((iTarget = find_ent_by_tname(iTarget, szTarget)) > 0)
 	{
 		pev(iTarget, pev_classname, szClass, charsmax(szClass));
 		pev(iTarget, pev_target, szTarget, charsmax(szTarget));
